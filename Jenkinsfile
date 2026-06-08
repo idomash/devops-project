@@ -23,7 +23,7 @@ pipeline {
         bat 'helm upgrade --install flask-app %CHART_PATH%'
         bat 'kubectl rollout status deployment/flask-app'
         bat 'start /B kubectl port-forward service/flask-app 18080:5000'
-        bat 'timeout /t 5 /nobreak'
+        bat 'ping 127.0.0.1 -n 6 > nul'
         bat 'curl -f http://127.0.0.1:18080/health'
     }
 }
