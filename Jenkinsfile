@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'idomash97/devops-ido-flask-app'
-        IMAGE_TAG = 'latest'
-        CHART_PATH = 'assignment-3-helm\\flask-app'
-    }
+    IMAGE_NAME = 'idomash97/devops-ido-flask-app'
+    IMAGE_TAG = 'latest'
+    CHART_PATH = 'assignment-3-helm\\flask-app'
+    KUBECONFIG = 'C:\\Users\\97250\\.kube\\config'
+}
 
     stages {
         stage('Build') {
