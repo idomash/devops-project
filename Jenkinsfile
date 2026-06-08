@@ -15,15 +15,17 @@ pipeline {
         }
 
         stage('Test') {
-            steps {
-                bat 'helm lint %CHART_PATH%'
-                bat 'helm upgrade --install flask-app %CHART_PATH%'
-                bat 'kubectl rollout status deployment/flask-app'
-                bat 'start /B kubectl port-forward service/flask-app 18080:5000'
-                bat 'timeout /t 5 /nobreak'
-                bat 'curl -f http://127.0.0.1:18080/health'
-            }
-        }
+    steps {
+        bat 'helm lint %CHART_PATH%'
+        bat 'kubectl config current-context'
+        bat 'kubectl cluster-info'
+        bat 'helm upgrade --install flask-app %CHART_PATH%'
+        bat 'kubectl rollout status deployment/flask-app'
+        bat 'start /B kubectl port-forward service/flask-app 18080:5000'
+        bat 'timeout /t 5 /nobreak'
+        bat 'curl -f http://127.0.0.1:18080/health'
+    }
+}
 
         stage('Deploy') {
             steps {
